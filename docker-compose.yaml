@@ -1,6 +1,13 @@
 version: '3.1'
 
 services:
+  graphql:
+    build:
+      context: ./graphql
+      dockerfile: ./Dockerfile
+    ports:
+      - "5001:5000"
+
   mysql:
     container_name: mysql
     image: mysql:latest

@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "8b4c6724-eb5b-48e3-a109-03405460b391",
+		"name": "graphql-http-request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16484007"
+	},
+	"item": [
+		{
+			"name": "1-1. all employees",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    allEmployees(sort: [NAME_ASC, ID_ASC]) {\n        edges {\n            node {\n                id\n                name\n                hiredOn\n                departmentId\n                roleId\n            }\n        }\n    }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/graphql",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-2. all employees with department and role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    allEmployees(sort: [NAME_ASC, ID_ASC]) {\n        edges {\n            node {\n                id\n                name\n                department {\n                    id\n                    name\n                }\n                role {\n                    roleId\n                    name\n                    id\n                }\n            }\n        }\n    }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/graphql",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. all roles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    allRoles(sort: []) {\n        edges {\n            node {\n                roleId\n                name\n            }\n        }\n    }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/graphql",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. all departments",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n    allDepartments {\n        edges {\n            node {\n                id\n                name\n            }\n        }\n    }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/graphql",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "http://127.0.0.1:5005",
+			"type": "string"
+		}
+	]
+}
