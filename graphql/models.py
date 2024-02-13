@@ -10,10 +10,10 @@ class MF(enum.Enum):
 class Employee(Base):
     __tablename__ = "employees"
     emp_no = Column(Integer, primary_key=True)
-    birth_date = Column(Date)
-    first_name = Column(String(14))
-    last_name = Column(String(16))
-    gender = Column(Enum(MF))
+    birth_date = Column(Date, nullable=False)
+    first_name = Column(String(14), nullable=False)
+    last_name = Column(String(16), nullable=False)
+    gender = Column(Enum(MF), nullable=False)
 
 class Department(Base):
     __tablename__ = "departments"
@@ -24,15 +24,15 @@ class DeptManager(Base):
     __tablename__ = "dept_manager"
     emp_no = Column(Integer, ForeignKey("employees.emp_no"), primary_key=True)
     dept_no = Column(String(4), ForeignKey("departments.dept_no"), primary_key=True)
-    from_date = Column(Date)
-    to_date = Column(Date)
+    from_date = Column(Date, nullable=False)
+    to_date = Column(Date, nullable=False)
 
 class DeptEmp(Base):
     __tablename__ = "dept_emp"
     emp_no = Column(Integer, ForeignKey("employees.emp_no"), primary_key=True)
     dept_no = Column(String(4), ForeignKey("departments.dept_no"), primary_key=True)
-    from_date = Column(Date)
-    to_date = Column(Date)
+    from_date = Column(Date, nullable=False)
+    to_date = Column(Date, nullable=False)
 
 class Titles(Base):
     __tablename__ = "titles"
@@ -44,6 +44,6 @@ class Titles(Base):
 class Salaries(Base):
     __tablename__ = "salaries"
     emp_no = Column(Integer, ForeignKey("employees.emp_no"), primary_key=True)
-    salary = Column(Integer)
+    salary = Column(Integer, nullable=False)
     from_date = Column(Date, primary_key=True)
-    to_date = Column(Date)
+    to_date = Column(Date, nullable=False)
