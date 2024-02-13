@@ -9,7 +9,7 @@ class MF(enum.Enum):
 
 class Employee(Base):
     __tablename__ = "employees"
-    emp_no = Column(Integer, primary_key=True)
+    emp_no = Column(Integer, primary_key=True, autoincrement=True)
     birth_date = Column(Date, nullable=False)
     first_name = Column(String(14), nullable=False)
     last_name = Column(String(16), nullable=False)

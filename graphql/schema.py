@@ -38,7 +38,7 @@ class Query(graphene.ObjectType):
 
     employees = MyConnectionField(
         Employee,
-        emp_no=graphene.String()
+        emp_no=graphene.Int()
     )
 
 
