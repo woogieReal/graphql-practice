@@ -1,32 +1,45 @@
 from models import Employee as EmployeeModel
 
 import graphene
-from graphene import relay, Connection, Int
-from graphene_sqlalchemy import SQLAlchemyConnectionField, SQLAlchemyObjectType
+import graphene_sqlalchemy
 
 
-class ExtendedConnection(Connection):
+class ExtendedConnection(graphene.Connection):
     class Meta:
         abstract = True
 
-    total_count = Int()
-    edge_count = Int()
+    total_count = graphene.Int()
+    edge_count = graphene.Int()
 
     def resolve_total_count(root, info, **kwargs):
         return root.length
     def resolve_edge_count(root, info, **kwargs):
         return len(root.edges)
 
-class Employee(SQLAlchemyObjectType):
+class MyConnectionField(graphene_sqlalchemy.SQLAlchemyConnectionField):
+    RELAY_ARGS = ['first', 'last', 'before', 'after']
+
+    @classmethod
+    def get_query(cls, model, info, **args):
+        query = super(MyConnectionField, cls).get_query(model, info, **args)
+        for field, value in args.items():
+            if field not in cls.RELAY_ARGS:
+                query = query.filter(getattr(model, field) == value)
+        return query
+
+class Employee(graphene_sqlalchemy.SQLAlchemyObjectType):
     class Meta:
         model = EmployeeModel
-        interfaces = (relay.Node,)
+        interfaces = (graphene.relay.Node,)
         connection_class = ExtendedConnection
 
 class Query(graphene.ObjectType):
-    node = relay.Node.Field()
+    node = graphene.relay.Node.Field()
 
-    all_employees = SQLAlchemyConnectionField(Employee.connection)
+    employees = MyConnectionField(
+        Employee,
+        emp_no=graphene.String()
+    )
 
 
 schema = graphene.Schema(query=Query)
