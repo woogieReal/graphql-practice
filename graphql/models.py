@@ -1,6 +1,11 @@
+import enum
 from database import Base
 from sqlalchemy import Column, Date, ForeignKey, Integer, String, Enum
 from sqlalchemy.orm import backref, relationship
+
+class MF(enum.Enum):
+    M = 'M'
+    F = 'F'
 
 class Employee(Base):
     __tablename__ = "employees"
@@ -8,12 +13,12 @@ class Employee(Base):
     birth_date = Column(Date)
     first_name = Column(String(14))
     last_name = Column(String(16))
-    gender = Column(Enum("M", "F"))
+    gender = Column(Enum(MF))
 
 class Department(Base):
     __tablename__ = "departments"
     dept_no = Column(String(4), primary_key=True)
-    dept_name = Column(String(40), unique_key=True)
+    dept_name = Column(String(40), unique=True)
 
 class DeptManager(Base):
     __tablename__ = "dept_manager"
