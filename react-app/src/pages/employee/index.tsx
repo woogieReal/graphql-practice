@@ -1,8 +1,9 @@
+import EmployeeTable from "./components/employee-table";
 
-export default function EmployeePage () {
+export default function EmployeePage() {
   return (
-    <div>
-      asdasd
+    <div className="container mx-auto">
+      <EmployeeTable />
     </div>
   )
 }
