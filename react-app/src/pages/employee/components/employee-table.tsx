@@ -1,4 +1,10 @@
+import { useQuery } from '@apollo/client';
+import { GET_EMPLOYEE_LIST } from '../../../graphql/employee';
+
 export default function EmployeeTable() {
+  const { loading, error, data } = useQuery(GET_EMPLOYEE_LIST);
+  console.log(data)
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
