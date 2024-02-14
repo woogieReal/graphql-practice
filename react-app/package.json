@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.9.4",
-    "@apollo/experimental-nextjs-app-support": "^0.8.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@testing-library/jest-dom": "^5.17.0",
