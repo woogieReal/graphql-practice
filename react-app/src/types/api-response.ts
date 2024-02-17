@@ -10,10 +10,10 @@ export type EdgeNode<T = unknown> = {
 
 export type PageCursors = {
   around: Cursor[];
-  first: Cursor;
-  last: Cursor;
-  next: Cursor;
-  previous: Cursor;
+  first: Cursor | null;
+  last: Cursor | null;
+  next: Cursor | null;
+  previous: Cursor | null;
 }
 
 export type Cursor = {

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_EMPLOYEE_LIST = gql`
-    query Employees {
-        employees(first: 5) {
+    query Employees($first: Int!, $after: String, $empNo: Int) {
+        employees(first: $first, after: $after, empNo: $empNo) {
             totalCount
             edges {
                 node {
