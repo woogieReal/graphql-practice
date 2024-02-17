@@ -30,6 +30,16 @@ export const GET_EMPLOYEE_LIST = gql`
                     isCurrent
                     page
                 }
+                next {
+                    cursor
+                    isCurrent
+                    page
+                }
+                previous {
+                    cursor
+                    isCurrent
+                    page
+                }
             }
         }
     }
