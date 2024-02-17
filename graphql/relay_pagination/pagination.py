@@ -1,11 +1,3 @@
-"""
-Ported to Python from
-https://github.com/artsy/metaphysics/blob/0a2024c9f5611e9b13b2cb99c112d2c4fc34707b/src/schema/v2/fields/pagination.ts
-
-via
-https://artsy.github.io/blog/2020/01/21/graphql-relay-windowed-pagination/
-
-"""
 import math
 
 from graphql_relay import to_global_id
@@ -37,7 +29,7 @@ def page_to_cursor_object(page, current_page, size):
 
 # Returns the total number of pagination results capped to PAGE_NUMBER_CAP.
 def compute_total_pages(total_records, size):
-    # 최대 페이지 수를 제한 가능
+    # Maximum number of pages can be limited
     # min(math.ceil(total_records / size), PAGE_NUMBER_CAP)
 
     return math.ceil(total_records / size)
@@ -66,19 +58,19 @@ def create_page_cursors(page_options, total_records, max_pages=5):
         # We are near the beginning, and `around` will include page 1.
         page_cursors = {
             "last": page_to_cursor_object(total_pages, current_page, size),
-            "around": page_cursors_to_array(1, max_pages - 1, current_page, size),
+            "around": page_cursors_to_array(1, max_pages + 1, current_page, size),
         }
     elif current_page >= total_pages - math.floor(max_pages / 2):
         # We are near the end, and `around` will include the last page.
         page_cursors = {
             "first": page_to_cursor_object(1, current_page, size),
             "around": page_cursors_to_array(
-                total_pages - max_pages + 2, total_pages, current_page, size
+                total_pages - max_pages, total_pages, current_page, size
             ),
         }
     else:
         # We are in the middle, and `around` doesn't include the first or last page.
-        offset = math.floor((max_pages - 3) / 2)
+        offset = math.floor((max_pages - 1) / 2)
         page_cursors = {
             "first": page_to_cursor_object(1, current_page, size),
             "around": page_cursors_to_array(
