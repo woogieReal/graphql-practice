@@ -37,7 +37,10 @@ def page_to_cursor_object(page, current_page, size):
 
 # Returns the total number of pagination results capped to PAGE_NUMBER_CAP.
 def compute_total_pages(total_records, size):
-    return min(math.ceil(total_records / size), PAGE_NUMBER_CAP)
+    # 최대 페이지 수를 제한 가능
+    # min(math.ceil(total_records / size), PAGE_NUMBER_CAP)
+
+    return math.ceil(total_records / size)
 
 
 def create_page_cursors(page_options, total_records, max_pages=5):
