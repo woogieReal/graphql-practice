@@ -20,9 +20,9 @@ class MyConnectionField(graphene_sqlalchemy.SQLAlchemyConnectionField):
     RELAY_ARGS = ['first', 'last', 'before', 'after']
 
     @classmethod
-    def get_query(cls, model, info, **args):
-        query = super(MyConnectionField, cls).get_query(model, info, **args)
-        for field, value in args.items():
+    def get_query(cls, model, info, **kwargs):
+        query = super(MyConnectionField, cls).get_query(model, info, **kwargs)
+        for field, value in kwargs.items():
             if field not in cls.RELAY_ARGS:
                 query = query.filter(getattr(model, field) == value)
         return query
@@ -38,7 +38,7 @@ class Query(graphene.ObjectType):
 
     employees = MyConnectionField(
         Employee,
-        emp_no=graphene.Int()
+        emp_no=graphene.Int(),
     )
 
 
