@@ -10,27 +10,38 @@ export default function EmployeeTable() {
   if (error) return <p>Error! ${error.message}</p>;
 
   const { totalCount, edgeCount, edges } = data.employees as OffsetBasedList<Employee>;
-  console.log(edges);
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div className="relative overflow-x-auto rounded-lg">
+      {/* 
+        overflow-x-auto 가로 스크롤링이 가능하도록 함, e.g. 아래 table이 div의 width 보다 길어지면 가로 스크롤링
+        rounded-lg 모서리에 둥근 테두리 적용, rounded, rounded-md, rounded-lg 순으로 더 둥글어짐
+      */}
+
+      <table className="w-full text-sm text-left text-gray-500">
+        <thead className="text-md text-gray-700 uppercase bg-gray-50">
           <tr>
-            <th scope="col" className="px-6 py-3">
-              EMPLOYEE NUMBER
+            {/* 
+              scope="col" 테이블의 헤더 셀을 정의하는 태그, 스크린 리더 등의 보조 기술에서 테이블을 읽을 때, 셀의 역할을 정확히 이해할 수 있도록 도와준다
+              whitespace-nowrap 텍스트가 줄 바꿈 없이 한 줄에 계속 표시되도록 한다
+            */}
+            <th scope="col" className="px-6 py-3 whitespace-nowrap">
+              employee number
             </th>
             <th scope="col" className="px-6 py-3">
-              NAME
+              name
             </th>
             <th scope="col" className="px-6 py-3">
-              GENDER
+              gender
             </th>
             <th scope="col" className="px-6 py-3">
-              BIRTHDAY
+              birthday
             </th>
             <th scope="col" className="px-6 py-3">
-              <span className="sr-only">NOT SHOWN</span>
+              {/* 
+                sr-only 요소를 숨기되, 스크린 리더에서는 보이도록 한다
+              */}
+              <span className="sr-only">not shown</span>
             </th>
           </tr>
         </thead>
@@ -38,11 +49,14 @@ export default function EmployeeTable() {
           {edges.map((edge, idx) => {
             const { node: employee } = edge;
             return (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <tr className="bg-white border-b hover:bg-gray-50">
+                {/* 
+                  border-b b는 bottom, 아래에 border가 생기게 함
+                */}
                 <td className="px-6 py-4">
                   {employee.empNo}
                 </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                   {employee.firstName + ' ' + employee.lastName}
                 </th>
                 <td className="px-6 py-4">
@@ -52,7 +66,7 @@ export default function EmployeeTable() {
                   {employee.birthDate}
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <button type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Light</button>
+                  <button type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Light</button>
                 </td>
               </tr>
             )
