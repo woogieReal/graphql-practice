@@ -2,9 +2,8 @@ import { gql } from '@apollo/client';
 
 export const GET_EMPLOYEE_LIST = gql`
     query Employees {
-        employees(first: 2) {
+        employees(first: 5) {
             totalCount
-            edgeCount
             edges {
                 node {
                     empNo
@@ -13,6 +12,23 @@ export const GET_EMPLOYEE_LIST = gql`
                     lastName
                     gender
                     id
+                }
+            }
+            pageCursors {
+                around {
+                    cursor
+                    isCurrent
+                    page
+                }
+                first {
+                    cursor
+                    isCurrent
+                    page
+                }
+                last {
+                    cursor
+                    isCurrent
+                    page
                 }
             }
         }
