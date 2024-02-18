@@ -28,7 +28,7 @@ export default function EmployeeTable() {
         rounded-lg 모서리에 둥근 테두리 적용, rounded, rounded-md, rounded-lg 순으로 더 둥글어짐
       */}
 
-      <table className="w-full text-sm text-left text-gray-500">
+      <table className="w-full text-sm text-left text-gray-500 my-8">
         <thead className="text-md text-gray-700 uppercase bg-gray-50">
           <tr>
             {/* 
